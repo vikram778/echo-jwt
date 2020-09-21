@@ -69,9 +69,9 @@ func NewApp() App {
 	return App{}
 }
 
-func test(c echo.Context) (error){
+func test(c echo.Context) error {
 	c.JSON(http.StatusOK, "start")
-	return  nil
+	return nil
 }
 
 func (a *App) Init() {
@@ -98,6 +98,10 @@ func (a *App) Init() {
 	a.Echo.POST("/signup", a.CreateUser)
 	a.Echo.POST("/login", a.Login)
 	a.Echo.Use(auth.JwtVerify)
+
+	a.Echo.GET("/get/:username", a.FetchUser)
+	a.Echo.PUT("/put/:username", a.UpdateUser)
+	a.Echo.DELETE("/del/:username", a.DeleteUser)
 
 }
 
